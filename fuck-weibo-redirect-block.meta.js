@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         自动跳转微博短链接
-// @version      0.1.0
+// @version      0.1.1
 // @author       wlkz
 // @description  fuck weibo url shorter service (t.cn) redirect blocking page, and redirect to target page automatically.
 // @homepage     https://github.com/wlkz/userscript-fuck-weibo-redirect-block
