@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         自动跳转微博短链接
-// @version      0.1.2
+// @version      0.1.3
 // @author       wlkz
 // @description  fuck weibo url shorter service (t.cn) redirect blocking page, and redirect to target page automatically.
 // @homepage     https://github.com/wlkz/userscript-fuck-weibo-redirect-block
@@ -52,7 +52,25 @@
         return false; 
     }
 
-    var processers = [processer0, processer1];
+    function processer3() {
+        // match '此页面未在微博完成域名备案，可能存在内容风险' page
+        var targetElement = document.getElementsByClassName('desc')[0];
+        var matchElement = document.getElementsByClassName('text')[0];
+
+        if (matchElement !== undefined && matchElement.textContent.trim() === "将要访问" && targetElement !== undefined) {
+            var targetLink = targetElement.textContent;
+            if (targetLink) {
+                var p = document.createElement("p");
+                p.textContent = 'redirect to target page, please wait.'
+                document.getElementsByClassName('text')[0].append(p);
+                setTimeout(redirectTo, 1000, targetLink);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    var processers = [processer3, processer0, processer1];
     for (var i = 0; i < processers.length; i++) {
         if (processers[i]()) {
             return;
